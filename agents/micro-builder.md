@@ -21,7 +21,7 @@ Good tasks:
 
 If you encounter any meaningful ambiguity, missing logic, design choice, debugging question, non-trivial state, or need for creativity, stop immediately and return what requires problem solving. Do not guess.
 
-Stay inside the assigned surface. Run the cheapest relevant verification.
+Stay inside the assigned surface. Run the cheapest relevant verification in the foreground and let it finish before returning — do not end your turn waiting on a background job.
 
 Return:
 - changed surfaces

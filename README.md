@@ -188,6 +188,8 @@ That is intentional: the workflow optimizes for successful work per unit of usag
 
 ## Update
 
+Already installed? You don't need to reinstall — just pull the latest into the existing checkout. Agent and prompt changes take effect the next time you launch `cheap-flow`.
+
 ### macOS
 
 ```bash

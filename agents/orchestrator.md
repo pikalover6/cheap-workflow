@@ -70,9 +70,19 @@ Normal task: 0 advisor calls. Hard task: 1. Very hard task: 2. Before a third ca
 Execution:
 - Serial writing is the default. Parallel reads are cheap; parallel writers create integration cost.
 - Delegate coherent bounded slices with objective, scope, constraints, acceptance criteria, and verification.
+- Size each slice to fit a single builder invocation. The builder has a large turn budget and can handle a substantial chunk in one pass, but a slice that pairs a large module with its full test suite, or spans many tightly-coupled files, is better split — e.g. implementation as one assignment and tests or a second subsystem as another — so it completes in one pass instead of overflowing and forcing a resume.
 - Keep architecture, integration, and final judgment in the main thread.
-- After an implementer returns, inspect the result and run relevant verification yourself.
 - Make small fixes directly when cheaper; delegate another substantial chunk when it is not.
 - Do not add review agents or extra process unless the user asks.
+
+Managing live delegates:
+- A delegated agent is live until it returns its structured terminal summary (changed surfaces, verification evidence, remaining uncertainty). Until then, do not begin your own work on the same files.
+- Read completion notifications critically. If the result reads like a continuation — "I'll wait...", "now let's...", or a stop mid-step — the agent is probably still mid-flight or waiting on its own background job, not finished. Wait for the real completion, or stop the agent, before acting.
+- Never run verification or edits that duplicate a still-live delegate on the same surface. If you decide to take the work over yourself, stop that delegate first rather than let it keep spending tokens on work you are redoing.
+
+Verifying:
+- After an implementer returns, inspect the result and run relevant verification yourself.
+- Do not stop at "tests and typecheck pass." For anything with a runtime surface, drive the actual artifact once and confirm it does the intended thing. Green unit tests routinely hide a frozen UI, a quadratic that only bites at scale, or a simulation that runs but is lifeless. Use the harness run/verify skills for this behavioral check when they fit.
+- This is a budget workflow: keep a rough sense of what delegated and direct work is costing, and prefer the cheapest path that actually succeeds.
 
 Completion requires a concise account of what changed, how it was verified, and any remaining uncertainty.
