@@ -1,2 +1,2 @@
 #!/bin/bash
-exec claude --plugin-dir "$HOME/.local/share/cheap-workflow" "$@"
+exec claude --model claude-sonnet-5 --effort medium --plugin-dir "$HOME/.local/share/cheap-workflow" "$@"
