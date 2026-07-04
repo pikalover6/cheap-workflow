@@ -1,0 +1,166 @@
+# Cheap Workflow
+
+A deliberately minimal, budget-oriented Claude Code workflow experiment.
+
+## The idea
+
+```text
+Sonnet 5 Medium — orchestrator
+├── Opus 4.8 XHigh — rare decision advisor
+├── Sonnet 5 Low — default implementer
+├── Haiku 4.5 — mechanical micro-builder
+└── Haiku 4.5 — read-only scout
+```
+
+The core rule:
+
+> Haiku may translate an already-decided change into code. If the task requires deciding what the code should do, use Sonnet Low.
+
+No Codex. No ChatGPT integration. No review agents. No hooks. No extra tooling.
+
+The experiment is isolated. `cheap-flow` loads the plugin; plain `claude` stays plain.
+
+## Install on macOS
+
+```bash
+mkdir -p ~/.local/share ~/.local/bin
+git clone https://github.com/pikalover6/cheap-workflow.git ~/.local/share/cheap-workflow
+ln -sf ~/.local/share/cheap-workflow/bin/cheap-flow ~/.local/bin/cheap-flow
+```
+
+Make sure `~/.local/bin` is on your PATH. For zsh:
+
+```bash
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+exec zsh
+```
+
+## Use
+
+From any project:
+
+```bash
+cd ~/code/my-project
+cheap-flow
+```
+
+That starts Claude Code with only this plugin loaded.
+
+Vanilla Claude Code is still:
+
+```bash
+claude
+```
+
+## Recommended workflow
+
+For a substantial project, planning with Opus beforehand is a good idea, but Cheap Workflow deliberately has no special planning integration.
+
+A simple pattern:
+
+1. Use Opus to make and approve a plan.
+2. Start `cheap-flow` in the project.
+3. Give the Sonnet orchestrator the task and approved plan.
+4. Let it route implementation cheaply.
+
+The orchestrator will:
+
+- inspect directly or use parallel Haiku scouts for cheap evidence
+- use Sonnet 5 Low for normal software engineering
+- use Haiku only for already-specified mechanical coding
+- call Opus 4.8 XHigh only for consequential unresolved decisions
+- integrate and verify the result itself
+
+## Routing policy
+
+### Haiku scout
+
+Use for one narrow read-only question:
+
+- find callers
+- locate tests
+- map a package
+- inspect config
+- summarize logs
+- collect evidence
+
+### Haiku micro-builder
+
+Use only when the logic is already decided.
+
+Good examples:
+
+- copy an adjacent test pattern with specified differences
+- add a known config entry
+- apply a specified rename
+- make a tiny CSS edit
+- translate fully written-out logic into code
+- perform a repetitive mechanical edit
+
+If Haiku encounters ambiguity, missing logic, a design choice, a debugging question, non-trivial state, or any need for creativity, it must stop.
+
+### Sonnet 5 Low builder
+
+Default for real software engineering:
+
+- debugging
+- choosing an approach
+- implementing non-trivial behavior
+- stateful logic
+- refactors
+- tradeoffs
+- anything requiring problem solving or creativity
+
+### Opus 4.8 XHigh advisor
+
+Rarely called. The orchestrator should gather cheap evidence first.
+
+Advisor-worthy situations:
+
+- two credible approaches remain and the choice has meaningful downstream cost
+- repository reality contradicts the plan
+- a bug still has multiple plausible root causes after investigation
+- a failed implementation changes the theory
+- a consequential architectural or high-semantic-risk decision remains
+- a suspected blind spot cannot be resolved by cheap inspection
+
+Before calling Opus, the orchestrator must provide:
+
+```text
+Decision:
+Known facts:
+Evidence:
+Options:
+Current recommendation:
+Main uncertainty:
+Why getting this wrong is expensive:
+```
+
+Normal task: zero advisor calls. Hard task: one. Very hard task: two. Before a third call, the workflow should stop and tell you the task is stuck or needs fundamental replanning.
+
+## Parallelism
+
+Parallel reads are encouraged. Writing is serial by default.
+
+That is intentional: the workflow optimizes for successful work per unit of usage, not maximum wall-clock speed.
+
+## Update
+
+```bash
+git -C ~/.local/share/cheap-workflow pull --ff-only
+```
+
+## Uninstall
+
+```bash
+rm ~/.local/bin/cheap-flow
+rm -rf ~/.local/share/cheap-workflow
+```
+
+## Development
+
+```bash
+git clone https://github.com/pikalover6/cheap-workflow.git
+cd cheap-workflow
+claude --plugin-dir .
+```
