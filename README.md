@@ -25,6 +25,7 @@ The experiment is isolated. `cheap-flow` loads the plugin; plain `claude` stays 
 ```bash
 mkdir -p ~/.local/share ~/.local/bin
 git clone https://github.com/pikalover6/cheap-workflow.git ~/.local/share/cheap-workflow
+chmod +x ~/.local/share/cheap-workflow/bin/cheap-flow
 ln -sf ~/.local/share/cheap-workflow/bin/cheap-flow ~/.local/bin/cheap-flow
 ```
 
@@ -148,6 +149,7 @@ That is intentional: the workflow optimizes for successful work per unit of usag
 
 ```bash
 git -C ~/.local/share/cheap-workflow pull --ff-only
+chmod +x ~/.local/share/cheap-workflow/bin/cheap-flow
 ```
 
 ## Uninstall
