@@ -7,14 +7,14 @@ A deliberately minimal, budget-oriented Claude Code workflow experiment.
 ```text
 Sonnet 5 Medium — orchestrator
 ├── Opus 4.8 XHigh — rare decision advisor
-├── Sonnet 5 Low — default implementer
+├── Sonnet 5 Low — default implementer for substantial coding
 ├── Haiku 4.5 — mechanical micro-builder
 └── Haiku 4.5 — read-only scout
 ```
 
 The core rule:
 
-> Haiku may translate an already-decided change into code. If the task requires deciding what the code should do, use Sonnet Low.
+> The orchestrator handles tiny edits directly. Substantial implementation goes to Sonnet Low. Haiku may translate an already-decided change into code, but if the task requires deciding what the code should do, use Sonnet Low.
 
 No Codex. No ChatGPT integration. No review agents. No hooks. No extra tooling.
 
@@ -93,13 +93,26 @@ A simple pattern:
 
 The orchestrator will:
 
+- make tiny and local edits directly when delegation would cost more
 - inspect directly or use parallel Haiku scouts for cheap evidence
-- use Sonnet 5 Low for normal software engineering
+- use Sonnet 5 Low for substantial software engineering
 - use Haiku only for already-specified mechanical coding
 - call Opus 4.8 XHigh only for consequential unresolved decisions
 - integrate and verify the result itself
 
+A broad request such as building a website, feature, API, or application should normally use at least one implementation subagent. A one-line fix should not.
+
 ## Routing policy
+
+### Orchestrator direct work
+
+The Sonnet 5 Medium main agent may work directly when the task is cheaper to do than to delegate:
+
+- one-line or few-line changes
+- small single-file tweaks
+- integration glue
+- quick corrections after delegated work
+- changes that depend heavily on the full conversation context
 
 ### Haiku scout
 
@@ -129,15 +142,16 @@ If Haiku encounters ambiguity, missing logic, a design choice, a debugging quest
 
 ### Sonnet 5 Low builder
 
-Default for real software engineering:
+Default for substantial real software engineering:
 
+- building a coherent feature or component
 - debugging
 - choosing an approach
 - implementing non-trivial behavior
 - stateful logic
 - refactors
 - tradeoffs
-- anything requiring problem solving or creativity
+- anything requiring sustained problem solving or creativity
 
 ### Opus 4.8 XHigh advisor
 
