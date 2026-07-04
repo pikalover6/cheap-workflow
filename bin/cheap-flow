@@ -1,0 +1,2 @@
+#!/bin/bash
+exec claude --plugin-dir "$HOME/.local/share/cheap-workflow" "$@"
