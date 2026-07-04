@@ -1,6 +1,6 @@
 ---
 name: builder
-description: Default implementation agent for real software engineering. Use whenever the task requires problem solving, judgment, debugging, design, or creativity.
+description: Use proactively for real software engineering. Default implementation agent whenever the task requires problem solving, judgment, debugging, design, or creativity.
 model: claude-sonnet-5
 effort: low
 maxTurns: 28
