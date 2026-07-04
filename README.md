@@ -36,6 +36,33 @@ echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
 exec zsh
 ```
 
+## Install on Windows
+
+Open PowerShell and run:
+
+```powershell
+New-Item -ItemType Directory -Force "$HOME\.local\share", "$HOME\.local\bin" | Out-Null
+git clone https://github.com/pikalover6/cheap-workflow.git "$HOME\.local\share\cheap-workflow"
+Copy-Item "$HOME\.local\share\cheap-workflow\bin\cheap-flow.cmd" "$HOME\.local\bin\cheap-flow.cmd" -Force
+```
+
+Add `~\.local\bin` to your user PATH if it is not already there:
+
+```powershell
+$bin = "$HOME\.local\bin"
+$userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+if (($userPath -split ';') -notcontains $bin) {
+  [Environment]::SetEnvironmentVariable("Path", "$userPath;$bin", "User")
+}
+$env:Path += ";$bin"
+```
+
+Then run:
+
+```powershell
+cheap-flow
+```
+
 ## Use
 
 From any project:
@@ -147,16 +174,34 @@ That is intentional: the workflow optimizes for successful work per unit of usag
 
 ## Update
 
+### macOS
+
 ```bash
 git -C ~/.local/share/cheap-workflow pull --ff-only
 chmod +x ~/.local/share/cheap-workflow/bin/cheap-flow
 ```
 
+### Windows
+
+```powershell
+git -C "$HOME\.local\share\cheap-workflow" pull --ff-only
+Copy-Item "$HOME\.local\share\cheap-workflow\bin\cheap-flow.cmd" "$HOME\.local\bin\cheap-flow.cmd" -Force
+```
+
 ## Uninstall
+
+### macOS
 
 ```bash
 rm ~/.local/bin/cheap-flow
 rm -rf ~/.local/share/cheap-workflow
+```
+
+### Windows
+
+```powershell
+Remove-Item "$HOME\.local\bin\cheap-flow.cmd" -Force -ErrorAction SilentlyContinue
+Remove-Item "$HOME\.local\share\cheap-workflow" -Recurse -Force
 ```
 
 ## Development
