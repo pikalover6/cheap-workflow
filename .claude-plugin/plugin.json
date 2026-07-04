@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "cheap-workflow",
+  "displayName": "Cheap Workflow",
+  "version": "0.1.0",
+  "description": "A budget Claude Code workflow: Sonnet 5 Medium orchestrates, Opus 4.8 XHigh advises rarely, Sonnet 5 Low implements, and Haiku handles mechanical work and research.",
+  "author": {
+    "name": "pikalover6",
+    "url": "https://github.com/pikalover6"
+  },
+  "repository": "https://github.com/pikalover6/cheap-workflow",
+  "keywords": ["claude-code", "agents", "budget", "orchestration", "workflow"]
+}
