@@ -1,2 +1,2 @@
 @echo off
-claude --plugin-dir "%USERPROFILE%\.local\share\cheap-workflow" %*
+claude --model claude-sonnet-5 --effort medium --plugin-dir "%USERPROFILE%\.local\share\cheap-workflow" %*
