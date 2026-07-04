@@ -1,6 +1,6 @@
 ---
 name: micro-builder
-description: Haiku implementation for fully specified mechanical changes where the logic is already decided and no real problem solving is needed.
+description: Use proactively for fully specified mechanical changes where the logic is already decided and no real problem solving is needed.
 model: claude-haiku-4-5
 maxTurns: 12
 tools: Read, Write, Edit, Glob, Grep, Bash
